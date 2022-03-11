@@ -25,13 +25,13 @@
 	./cmsCondorData.py run_steamflow_cfg.py <your CMSSW/src env> <Where you will store EDM files> -n 1 -q longlunch;
 	./sub_total.jobb; #to submit jobs
 
-####Prepare the counting script
+#### Prepare the counting script
 
 	cd ../Rates/ ;
 
-	- Modify the values of **inputFilesDir**, **cmsswDir**, and **json_file** in *config_makeCondorJobsData.py* to match your setup
+##### Modify the values of **inputFilesDir**, **cmsswDir**, and **json_file** in *config_makeCondorJobsData.py* to match your setup
 
-####Run the counting scripts
+#### Run the counting scripts
 
 	cd ../Rates/ ;
 	
