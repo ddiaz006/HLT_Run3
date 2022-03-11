@@ -10,9 +10,11 @@
 #### TSG Rate Studies
 - Get the tool
 
+
 	git clone https://github.com/sanuvarghese/SteamRatesEdmWorkflow.git 
 
 - Create the EDM files from Ephemeral dataset
+
 
 	cp Rates_TSG/hlt.py SteamRatesEdmWorkflow/Prod/ ;
 	cp Rates_TSG/list_cff.py SteamRatesEdmWorkflow/Prod/ ;
