@@ -87,22 +87,22 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'pythia8PowhegEmissionVetoSettings', 
             'processParameters'),
         processParameters = cms.vstring('POWHEG:nFinal = 2', 
-            '23:mMin = 0.05', 
-            '23:onMode = on', 
-            '24:mMin = 0.05',             
-            '24:onMode = on', 
+            #'23:mMin = 0.05',         #Turn off, only want Higgs decay to b  
+            #'23:onMode = on',         #Turn off, only want Higgs decay to b 
+            #'24:mMin = 0.05',         #Turn off, only want Higgs decay to b     
+            #'24:onMode = on',         #Turn off, only want Higgs decay to b
             '25:m0 = 125.0', 
             '25:onMode = off', 
             '25:onIfMatch = 5 -5', 
-            '25:onIfMatch = 23 23', 
-            '25:onIfMatch = 24 -24', 
+            #'25:onIfMatch = 23 23',   #Turn off, only want Higgs decay to b 
+            #'25:onIfMatch = 24 -24',  #Turn off, only want Higgs decay to b  
             'ResonanceDecayFilter:filter = on', 
             'ResonanceDecayFilter:exclusive = on', 
             'ResonanceDecayFilter:eMuTauAsEquivalent = on', 
             'ResonanceDecayFilter:allNuAsEquivalent = on', 
             'ResonanceDecayFilter:udscAsEquivalent = on',      #quarks equivalent if not top/bottom 
-            'ResonanceDecayFilter:mothers = 23,24,25',         #mothers are W/Z/H 
-            'ResonanceDecayFilter:daughters = 5,5,1,1,1,1'     #daughters are 5=b, 1=d(q)
+            'ResonanceDecayFilter:mothers = 25',               #mothers are H 
+            'ResonanceDecayFilter:daughters = 5,5,5,5'         #daughters are 5=b
             ),  #final state: two b quarks and 4 other Quarks   
         pythia8CP5Settings = cms.vstring('Tune:pp 14', 
             'Tune:ee 7', 
@@ -166,6 +166,7 @@ process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 
 
 process.ProductionFilterSequence = cms.Sequence(process.generator)
+#David says to comment out the rest of the file
 
 # Path and EndPath definitions
 process.lhe_step = cms.Path(process.externalLHEProducer)
