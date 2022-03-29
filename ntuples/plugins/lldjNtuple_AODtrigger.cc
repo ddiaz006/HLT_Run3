@@ -10,7 +10,7 @@
 #include "DataFormats/Common/interface/TriggerResults.h"
 #include "DataFormats/PatCandidates/interface/TriggerObjectStandAlone.h"
 #include "DataFormats/PatCandidates/interface/PackedTriggerPrescales.h"
-#include "HLT_Run3/Eff/ntuples/interface/lldjNtuple.h"
+#include "HLT_Run3/ntuples/interface/lldjNtuple.h"
 
 //// trigger fired variables
 ULong64_t   AOD_HLT_DoubleEle33_;

@@ -1,4 +1,4 @@
-#include "HLT_Run3/Eff/ntuples/interface/GetTrackTrajInfo.h"
+#include "HLT_Run3/ntuples/interface/GetTrackTrajInfo.h"
 
 #include "RecoTracker/Record/interface/TrackerRecoGeometryRecord.h"
 #include "RecoTracker/TkDetLayers/interface/GeometricSearchTracker.h"

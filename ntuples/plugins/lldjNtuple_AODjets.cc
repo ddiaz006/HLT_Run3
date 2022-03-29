@@ -1,5 +1,5 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
-#include "HLT_Run3/Eff/ntuples/interface/lldjNtuple.h"
+#include "HLT_Run3/ntuples/interface/lldjNtuple.h"
 #include "JetMETCorrections/Objects/interface/JetCorrector.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
@@ -17,7 +17,7 @@
 #include "TrackingTools/TrajectoryState/interface/FreeTrajectoryState.h"
 #include "TrackingTools/TrajectoryState/interface/TrajectoryStateOnSurface.h"
 #include "TrackingTools/TrajectoryState/interface/TrajectoryStateTransform.h"
-#include "HLT_Run3/Eff/ntuples/interface/GetTrackTrajInfo.h"
+#include "HLT_Run3/ntuples/interface/GetTrackTrajInfo.h"
 
 #include "MagneticField/Records/interface/IdealMagneticFieldRecord.h"
 
