@@ -19,7 +19,6 @@
 
 // Header file for the classes stored in the TTree if any.
 //#include "string"
-#include "vector"
 
 class TrigEff {
 public :
@@ -429,7 +428,6 @@ void TrigEff::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
-   //HLTDecision = 0;
 
 //   fChain->SetBranchAddress("lumiNum", &lumiNum, &b_lumiNum);
    fChain->SetBranchAddress("eventNum", &eventNum, &b_eventNum);
@@ -550,7 +548,7 @@ void TrigEff::Init(TTree *tree)
 //   fChain->SetBranchAddress("fatJetPassIDTight", &fatJetPassIDTight, &b_fatJetPassIDTight);
 //   fChain->SetBranchAddress("fatJetNPFCands", &fatJetNPFCands, &b_fatJetNPFCands);
 //   fChain->SetBranchAddress("fatJetPFCandIndex", &fatJetPFCandIndex, &b_fatJetPFCandIndex);
-   fChain->SetBranchAddress("HLTDecision", &HLTDecision, &b_HLTDecision);
+   fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
 //   fChain->SetBranchAddress("HLTPrescale", HLTPrescale, &b_HLTPrescale);
 //   fChain->SetBranchAddress("nGenJets", &nGenJets, &b_nGenJets);
 //   fChain->SetBranchAddress("genJetE", &genJetE, &b_genJetE);
