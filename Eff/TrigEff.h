@@ -139,7 +139,7 @@ public :
 //   Float_t         fatJetPrunedM[1000];   //[nFatJets]
 //   Float_t         fatJetTrimmedM[1000];   //[nFatJets]
 //   Float_t         fatJetFilteredM[1000];   //[nFatJets]
-//   Float_t         fatJetSoftDropM[1000];   //[nFatJets]
+   Float_t         fatJetSoftDropM[1000];   //[nFatJets]
 //   Float_t         fatJetCorrectedSoftDropM[1000];   //[nFatJets]
 //   Float_t         fatJetUncorrectedSoftDropM[1000];   //[nFatJets]
 //   Float_t         fatJetTau1[1000];   //[nFatJets]
@@ -297,7 +297,7 @@ public :
 //   TBranch        *b_fatJetPrunedM;   //!
 //   TBranch        *b_fatJetTrimmedM;   //!
 //   TBranch        *b_fatJetFilteredM;   //!
-//   TBranch        *b_fatJetSoftDropM;   //!
+   TBranch        *b_fatJetSoftDropM;   //!
 //   TBranch        *b_fatJetCorrectedSoftDropM;   //!
 //   TBranch        *b_fatJetUncorrectedSoftDropM;   //!
 //   TBranch        *b_fatJetTau1;   //!
@@ -355,7 +355,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop();
+   virtual void     Loop(std::map<int,std::vector<Bool_t>> &m_hlt, std::map<int,std::vector<Float_t>> &m_FatJetPT, std::map<int,std::vector<Float_t>> &m_FatJetMass);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };
@@ -537,7 +537,7 @@ void TrigEff::Init(TTree *tree)
 //   fChain->SetBranchAddress("fatJetPrunedM", &fatJetPrunedM, &b_fatJetPrunedM);
 //   fChain->SetBranchAddress("fatJetTrimmedM", &fatJetTrimmedM, &b_fatJetTrimmedM);
 //   fChain->SetBranchAddress("fatJetFilteredM", &fatJetFilteredM, &b_fatJetFilteredM);
-//   fChain->SetBranchAddress("fatJetSoftDropM", &fatJetSoftDropM, &b_fatJetSoftDropM);
+   fChain->SetBranchAddress("fatJetSoftDropM", &fatJetSoftDropM, &b_fatJetSoftDropM);
 //   fChain->SetBranchAddress("fatJetCorrectedSoftDropM", &fatJetCorrectedSoftDropM, &b_fatJetCorrectedSoftDropM);
 //   fChain->SetBranchAddress("fatJetUncorrectedSoftDropM", &fatJetUncorrectedSoftDropM, &b_fatJetUncorrectedSoftDropM);
 //   fChain->SetBranchAddress("fatJetTau1", &fatJetTau1, &b_fatJetTau1);
