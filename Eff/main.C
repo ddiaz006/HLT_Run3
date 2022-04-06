@@ -11,10 +11,14 @@ int main(){
 TChain* chain = new TChain("ntuples/llp");
 TChain* chain_HLTX = new TChain("ntuples/llp");
 
+TString inpath = "root://cmsxrootd.fnal.gov///store/group/phys_susy/razor/Run2Analysis/HH/HLTStudies/V1/";
 // CHANGE SAMPLES HERE
-chain->Add("ntupleFromMiniAOD.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
-chain_HLTX->Add("ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+chain     ->Add(inpath+"ntupleFromMiniAOD.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+chain_HLTX->Add(inpath+"ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
 TString SampleName = "_GluGluToHHTo2B2Tau_node_cHHH1";
+//chain->Add("ntupleFromMiniAOD.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+//chain_HLTX->Add("ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+//TString SampleName = "_GluGluToHHTo2B2Tau_node_cHHH1";
 
 TString name[817];
 std::fstream names;
