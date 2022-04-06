@@ -20,7 +20,6 @@ chain_HLTX->Add("ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powh
 TString name[817];
 std::fstream names;
 names.open("trigger_names_llp_ForRun3HLTStudy.txt", std::fstream::in);
-
 int n = 0;
 if (names.is_open()) {
             TString x;
