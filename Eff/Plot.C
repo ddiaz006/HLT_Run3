@@ -64,6 +64,7 @@ names.close();
  pad1->Draw();
  pad1->cd();
  gStyle->SetPalette(kBird);
+ gStyle->SetLineWidth(2);
 
  TFile *_file0 = TFile::Open("histograms.root");
 std::cout<<"open root file"<<std::endl;
@@ -90,17 +91,67 @@ std::cout<<"open root file"<<std::endl;
    gr_TTOC_PT[k]->SetTitle(name[k]);
    gr_TTOC_PT[k]->SetMaximum(1.0);
  }
+ TLegend *leg;
+ leg = new TLegend(0.15,0.6,0.5,0.8);
+ leg->SetBorderSize(0);
+ leg->SetNColumns(1);
+ leg->SetFillColor(kWhite);
  
+ //AK8PFJet360, AllMasses
+ gr_TTOC_PT[4]->SetLineColor(kBlue); 
+ gr_TTOC_PT[13]->SetLineColor(kBlack); 
+ gr_TTOC_PT[22]->SetLineColor(kGreen); 
+ gr_TTOC_PT[0]->SetLineColor(kRed);
+ leg->AddEntry(gr_TTOC_PT[4],  name[4],  "lpe");
+ leg->AddEntry(gr_TTOC_PT[13], name[13], "lpe");
+ leg->AddEntry(gr_TTOC_PT[22], name[22], "lpe");
+ leg->AddEntry(gr_TTOC_PT[0],  name[0],  "lpe");
+ gr_TTOC_PT[0]->SetTitle(name[4]);
+ gr_TTOC_PT[4]->Draw(); //SD 30
+ gr_TTOC_PT[13]->Draw("sames"); //SD 40
+ gr_TTOC_PT[22]->Draw("sames"); //SD 50
+ gr_TTOC_PT[0]->Draw("sames"); //Trim
+ leg->Draw("sames");
+ canvas->SaveAs("plots/1JPT360AllMass_compare.pdf");
+ //canvas->Clear();
+ leg->Clear();
 
- gr_TTOC_PT[2]->Draw();
-
- canvas->SaveAs("plots/Eff[2].pdf");
 
 
+ //AK8PFJet360, 30,30
+ leg->AddEntry(gr_TTOC_PT[4],  name[4],  "lpe");
+ leg->AddEntry(gr_TTOC_PT[0],  name[0],  "lpe");
+ gr_TTOC_PT[0]->SetTitle(name[4]);
+ gr_TTOC_PT[4]->Draw(); //SD 30
+ gr_TTOC_PT[0]->Draw("sames"); //Trim
+ leg->Draw("sames");
+ canvas->SaveAs("plots/1JPT360Mass30-30_compare.pdf");
+ //canvas->Clear();
+ leg->Clear();
 
 
+ //AK8PFJet360, 30,40
+ leg->AddEntry(gr_TTOC_PT[13], name[13], "lpe");
+ leg->AddEntry(gr_TTOC_PT[0],  name[0],  "lpe");
+ gr_TTOC_PT[0]->SetTitle(name[13]);
+ gr_TTOC_PT[13]->Draw(); //SD 40
+ gr_TTOC_PT[0]->Draw("sames"); //Trim
+ leg->Draw("sames");
+ canvas->SaveAs("plots/1JPT360Mass30-40_compare.pdf");
+ //canvas->Clear();
+ leg->Clear();
 
 
+ //AK8PFJet360, 30,50
+ leg->AddEntry(gr_TTOC_PT[22], name[22], "lpe");
+ leg->AddEntry(gr_TTOC_PT[0],  name[0],  "lpe");
+ gr_TTOC_PT[0]->SetTitle(name[22]);
+ gr_TTOC_PT[22]->Draw(); //SD 50
+ gr_TTOC_PT[0]->Draw("sames"); //Trim
+ leg->Draw("sames");
+ canvas->SaveAs("plots/1JPT360Mass30-50_compare.pdf");
+ //canvas->Clear();
+ leg->Clear();
 
 
 

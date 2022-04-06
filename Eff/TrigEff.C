@@ -22,16 +22,14 @@ void TrigEff::Loop(std::map<int, std::vector<Bool_t>> &m_hlt, std::map<int, std:
       std::vector<Bool_t> v_hlt;
       for (int i = 0; i<1201; i++) v_hlt.push_back( HLTDecision[i] );
       m_hlt[eventNum] = v_hlt;
-      //std::cout<<"Done m_HLT"<<std::endl;
+
       std::vector<Float_t> v_FatJetPT;
       for (int i = 0; i<nFatJets; i++) v_FatJetPT.push_back( fatJetPt[i] );
       m_FatJetPT[eventNum] = v_FatJetPT;
-      //std::cout<<"Done m_PT"<<std::endl;
 
       std::vector<Float_t> v_FatJetMass;
       for (int i = 0; i<nFatJets; i++) v_FatJetMass.push_back( fatJetSoftDropM[i] );
       m_FatJetMass[eventNum] = v_FatJetMass;
-      //std::cout<<"Done m_Mass"<<std::endl;
 
       //for (int i = 0; i < 1; i++){
       //  std::cout <<"HLTDecision("<<eventNum<<"): "<<HLTDecision[i]<<std::endl;

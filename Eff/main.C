@@ -7,15 +7,14 @@
 #include <fstream>
 
 int main(){
-//file="ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root"
 
 TChain* chain = new TChain("ntuples/llp");
-chain->Add("ntupleFromMiniAOD.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
 TChain* chain_HLTX = new TChain("ntuples/llp");
-chain_HLTX->Add("ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
 
-//TH1F* h_EffNum  = new TH1F("h_EffNum", "h_EffNum", 50, 0, 500) ;
-//TH1F* h_EffDen  = new TH1F("h_EffDen", "h_EffDen", 50, 0, 500) ;
+// CHANGE SAMPLES HERE
+chain->Add("ntupleFromMiniAOD.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+chain_HLTX->Add("ntupleFromHLTX.GluGluToHHTo2B2Tau_node_cHHH1_TuneCP5_14TeV-powheg-pythia8.root");
+TString SampleName = "_GluGluToHHTo2B2Tau_node_cHHH1";
 
 TString name[817];
 std::fstream names;
@@ -31,18 +30,23 @@ if (names.is_open()) {
 }
 names.close();
 
-TH1F* h_Num[817];
-TH1F* h_Den[817];
+TH1F* h_NumPT[817];
+TH1F* h_DenPT[817];
+TH1F* h_NumMass[817];
+TH1F* h_DenMass[817];
 
-//std::string title;
 char titleNum[100];
 char titleDen[100];
 for (int k = 0; k<817; k++){
    sprintf(titleNum,"h_PT[%d]_Num",k);
    sprintf(titleDen,"h_PT[%d]_Den",k);
-   //std::cout<<titleNum<<"  "<<titleDen<<std::endl;
-   h_Num[k] = new TH1F(titleNum, name[k]+"_Num", 50, 0, 500);
-   h_Den[k] = new TH1F(titleDen, name[k]+"_Den", 50, 0, 500);
+   h_NumPT[k] = new TH1F(titleNum, name[k]+"_Num", 50, 0, 800);
+   h_DenPT[k] = new TH1F(titleDen, name[k]+"_Den", 50, 0, 800);
+   
+   sprintf(titleNum,"h_Mass[%d]_Num",k);
+   sprintf(titleDen,"h_Mass[%d]_Den",k);
+   h_NumMass[k] = new TH1F(titleNum, name[k]+"_Num", 10, 0, 200);
+   h_DenMass[k] = new TH1F(titleDen, name[k]+"_Den", 10, 0, 200);
 }
 
 
@@ -65,28 +69,23 @@ U.Loop( m_hlt, m_FatJetPT, m_FatJetMass);
 
 std::cout<<"Done with AOD loop"<<std::endl;
 //Loop over Events
-int k=1000;
 for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt_HLTX.begin(); itr != m_hlt_HLTX.end(); ++itr) {
-   //std::cout<< "HLT: "<<itr->first <<std::endl;
-   //for(std::map<int, std::vector<Float_t>>::iterator jtr = m_FatJetPT.begin(); jtr != m_FatJetPT.end(); ++jtr) {
-   //std::cout<< "HLT: "<<itr->first <<"  AOD: "<<jtr->first<<std::endl;
       auto jtr = m_FatJetPT.find(itr->first) ;
+      auto mtr = m_FatJetMass.find(itr->first) ;
       if( jtr != m_FatJetPT.end() ){
          //Loop over triggers
          for (int i = 0; i<817; i++){
             //Loop over jets
             for(int j=0; j< (jtr->second).size(); j++){
-              //std::cout<<(jtr->second).size()<<std::endl;
-              //std::cout<<"Trigger: "<<i << '\t'<<"Event: " << itr->first << '\t' << "Decision: "<<(itr->second)[i] << '\t' << "Pt: "<<(jtr->second)[j]<< '\n';
-
-              if( (itr->second)[i] ) h_Num[i]->Fill( (jtr->second)[j] ); 
-              h_Den[i]->Fill( (jtr->second)[j] );
+              if( (itr->second)[i] ) {
+                h_NumPT[i]  ->Fill( (jtr->second)[j] );
+                h_NumMass[i]->Fill( (mtr->second)[j] );
+              } 
+              h_DenPT[i]  ->Fill( (jtr->second)[j] );
+              h_DenMass[i]->Fill( (mtr->second)[j] );
             }
          }
-   //   }
    }
-   //k++;
-   //if(k>1) break;
 }
 ////for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt.begin(); itr != m_hlt.end(); ++itr) {
 ////     for (int i = 0; i<50; i++){
@@ -94,11 +93,13 @@ for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt_HLTX.begin(); itr 
 ////          << '\n';
 ////     }
 //// }
-TFile *f = TFile::Open("histograms.root", "recreate");
+TFile *f = TFile::Open("histograms"+SampleName+".root", "recreate");
 f->cd();
 for (int k = 0; k<817; k++){
-   h_Num[k]->Write();
-   h_Den[k]->Write();
+   h_NumPT[k]->Write();
+   h_DenPT[k]->Write();
+   h_NumMass[k]->Write();
+   h_DenMass[k]->Write();
 }
 f->Close();
 
