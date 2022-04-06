@@ -38,63 +38,70 @@ TH1F* h_Den[817];
 //std::string title;
 char titleNum[100];
 char titleDen[100];
-TFile *f = TFile::Open("histograms.root", "recreate");
-f->cd();
 for (int k = 0; k<817; k++){
    sprintf(titleNum,"h_PT[%d]_Num",k);
    sprintf(titleDen,"h_PT[%d]_Den",k);
-   std::cout<<titleNum<<"  "<<titleDen<<std::endl;
+   //std::cout<<titleNum<<"  "<<titleDen<<std::endl;
    h_Num[k] = new TH1F(titleNum, name[k]+"_Num", 50, 0, 500);
    h_Den[k] = new TH1F(titleDen, name[k]+"_Den", 50, 0, 500);
-   h_Num[k]->Write();
-   h_Den[k]->Write();
 }
-f->Close();
-//std::map<int, std::vector<Bool_t>> m_hlt;
-//std::map<int, std::vector<Bool_t>> m_hlt_HLTX;
-//
-//std::map<int, std::vector<Float_t>> m_FatJetPT;
-//std::map<int, std::vector<Float_t>> m_FatJetPT_HLTX;
-//
-//std::map<int, std::vector<Float_t>> m_FatJetMass;
-//std::map<int, std::vector<Float_t>> m_FatJetMass_HLTX;
-//
-////Grab trigger Decisions/Pt/Mass
-//TrigEff T(chain_HLTX);
-//T.Loop(m_hlt_HLTX, m_FatJetPT_HLTX, m_FatJetMass_HLTX);
-//std::cout<<"Done with HLT loop"<<std::endl;
-//
-//TrigEff U(chain);
-//U.Loop( m_hlt, m_FatJetPT, m_FatJetMass);
-//
-//std::cout<<"Done with AOD loop"<<std::endl;
-////Loop over Events
-//int k=1000;
-//for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt_HLTX.begin(); itr != m_hlt_HLTX.end(); ++itr) {
-//   //std::cout<< "HLT: "<<itr->first <<std::endl;
-//   for(std::map<int, std::vector<Float_t>>::iterator jtr = m_FatJetPT.begin(); jtr != m_FatJetPT.end(); ++jtr) {
-//   //std::cout<< "HLT: "<<itr->first <<"  AOD: "<<jtr->first<<std::endl;
-//      if(itr->first == jtr->first){
-//         //Loop over triggers
-//         for (int i = 0; i<817; i++){
-//            //Loop over jets
-//            for(int j=0; j< (jtr->second).size(); j++){
-//              //std::cout<<(jtr->second).size()<<", "<<;
-//              //std::cout<<"Trigger: "<<i << '\t'<<"Event: " << itr->first << '\t' << "Decision: "<<(itr->second)[i] << '\t' << "Pt: "<<(jtr->second)[j]<< '\n';
-//              int x=0 ;
-//            }
-//         }
-//      }
-//   }
-//   //k++;
-//   //if(k>1) break;
-//}
+
+
+std::map<int, std::vector<Bool_t>> m_hlt;
+std::map<int, std::vector<Bool_t>> m_hlt_HLTX;
+
+std::map<int, std::vector<Float_t>> m_FatJetPT;
+std::map<int, std::vector<Float_t>> m_FatJetPT_HLTX;
+
+std::map<int, std::vector<Float_t>> m_FatJetMass;
+std::map<int, std::vector<Float_t>> m_FatJetMass_HLTX;
+
+//Grab trigger Decisions/Pt/Mass
+TrigEff T(chain_HLTX);
+T.Loop(m_hlt_HLTX, m_FatJetPT_HLTX, m_FatJetMass_HLTX);
+std::cout<<"Done with HLT loop"<<std::endl;
+
+TrigEff U(chain);
+U.Loop( m_hlt, m_FatJetPT, m_FatJetMass);
+
+std::cout<<"Done with AOD loop"<<std::endl;
+//Loop over Events
+int k=1000;
+for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt_HLTX.begin(); itr != m_hlt_HLTX.end(); ++itr) {
+   //std::cout<< "HLT: "<<itr->first <<std::endl;
+   //for(std::map<int, std::vector<Float_t>>::iterator jtr = m_FatJetPT.begin(); jtr != m_FatJetPT.end(); ++jtr) {
+   //std::cout<< "HLT: "<<itr->first <<"  AOD: "<<jtr->first<<std::endl;
+      auto jtr = m_FatJetPT.find(itr->first) ;
+      if( jtr != m_FatJetPT.end() ){
+         //Loop over triggers
+         for (int i = 0; i<817; i++){
+            //Loop over jets
+            for(int j=0; j< (jtr->second).size(); j++){
+              //std::cout<<(jtr->second).size()<<std::endl;
+              //std::cout<<"Trigger: "<<i << '\t'<<"Event: " << itr->first << '\t' << "Decision: "<<(itr->second)[i] << '\t' << "Pt: "<<(jtr->second)[j]<< '\n';
+
+              if( (itr->second)[i] ) h_Num[i]->Fill( (jtr->second)[j] ); 
+              h_Den[i]->Fill( (jtr->second)[j] );
+            }
+         }
+   //   }
+   }
+   //k++;
+   //if(k>1) break;
+}
 ////for (std::map<int, std::vector<Bool_t>>::iterator itr = m_hlt.begin(); itr != m_hlt.end(); ++itr) {
 ////     for (int i = 0; i<50; i++){
 ////     if ((itr->second)[i] !=0)std::cout<<i << '\t' << itr->first << '\t' << (itr->second)[i]
 ////          << '\n';
 ////     }
 //// }
+TFile *f = TFile::Open("histograms.root", "recreate");
+f->cd();
+for (int k = 0; k<817; k++){
+   h_Num[k]->Write();
+   h_Den[k]->Write();
+}
+f->Close();
 
 std::cout<<"Done with Final Loop"<<std::endl;
 
