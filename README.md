@@ -3,8 +3,8 @@
 
 ## Environment set-up
 
-	cmsrel CMSSW_12_3_0_pre4;
-	cd CMSSW_12_3_0_pre4/src;
+	cmsrel CMSSW_12_3_0;
+	cd CMSSW_12_3_0/src;
 	cmsenv;
 
 ## TSG Rate Studies
